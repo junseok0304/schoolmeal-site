@@ -1,0 +1,338 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+    <title>환일고 급식사이트</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <meta property="og:image" content="https://i.ibb.co/vxn6g08/1604503730103.jpg">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <link rel="icon" href="급식판.jpg" type="image/x-icon" sizes="16x16">
+
+
+
+    <!--날짜 함수-->
+    <script>
+        $(function() {
+            $t = new Date();
+            $tyear = $t.getFullYear()
+            $tmonth = $t.getMonth() + 1;
+            $tdate = $t.getDate();
+            if ($tmonth < 10) {
+                $tmonth = "0" + $tmonth;
+            }
+
+            if ($tdate < 10) {
+                $tdate = "0" + $tdate;
+            }
+
+            $today = $tyear + $tmonth + $tdate;
+            $YMDD = $today;
+            $(".YMDD").append($tyear + "년 " + $tmonth + "월 " + $tdate + "일");
+
+
+
+        });
+    </script>
+
+
+
+
+
+    <!--중식 스크립트-->
+    <script>
+        $(function() {
+            $KEY = "0"
+            $t = new Date();
+            $tyear = $t.getFullYear()
+            $tmonth = $t.getMonth() + 1;
+            $tdate = $t.getDate();
+            if ($tmonth < 10) {
+                $tmonth = "0" + $tmonth;
+            }
+
+            if ($tdate < 10) {
+                $tdate = "0" + $tdate;
+            }
+
+            $today = $tyear + $tmonth + $tdate;
+            $YMD = $today;
+            $.ajax({
+                url: "https://open.neis.go.kr/hub/mealServiceDietInfo?Type=json&KEY=" + $KEY + "&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=B10&SD_SCHUL_CODE=7010266&MLSV_YMD=" + $YMD,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    $(".YMD").append($tyear + "년 " + $tmonth + "월 " + $tdate + "일");
+                    try {
+                        $meal = data.mealServiceDietInfo[1].row[0].DDISH_NM;
+                        $(".meal").append($meal);
+                    } catch (e) {
+                        $error = data.RESULT.MESSAGE;
+                        $(".error").append($error);
+                    }
+
+                },
+                error: function() {
+                    console.log("error");
+                }
+            })
+        });
+    </script>
+    <!--석식 스크립트-->
+    <script>
+        $(function() {
+            $KEY = "0"
+            $t = new Date();
+            $tyear = $t.getFullYear()
+            $tmonth = $t.getMonth() + 1;
+            $tdate = $t.getDate();
+            if ($tmonth < 10) {
+                $tmonth = "0" + $tmonth;
+            }
+
+            if ($tdate < 10) {
+                $tdate = "0" + $tdate;
+            }
+
+            $today = $tyear + $tmonth + $tdate;
+            $YMD = $today;
+            $.ajax({
+                url: "https://open.neis.go.kr/hub/mealServiceDietInfo?Type=json&KEY=" + $KEY + "&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=B10&SD_SCHUL_CODE=7010266&MMEAL_SC_CODE=3&MLSV_YMD=" + $YMD,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+
+                    try {
+                        $meal2 = data.mealServiceDietInfo[1].row[0].DDISH_NM;
+                        $(".meal2").append($meal2);
+                    } catch (e) {
+                        $error = data.RESULT.MESSAGE;
+                        $(".error").append($error);
+                    }
+
+                },
+                error: function() {
+                    console.log("error");
+                }
+            })
+        });
+    </script>
+
+    <!--내일 석식 스크립트-->
+    <script>
+        $(function() {
+            $KEY = "0"
+            $t = new Date();
+            $tyear3 = $t.getFullYear()
+            $tmonth3 = $t.getMonth() + 1;
+            $tdate3 = $t.getDate() + 1;
+            if ($tmonth3 < 10) {
+                $tmonth3 = "0" + $tmonth3;
+            }
+
+            if ($tdate3 < 10) {
+                $tdate3 = "0" + $tdate3;
+            }
+
+            $today3 = $tyear3 + $tmonth3 + $tdate3;
+            $YMD3 = $today3;
+            $.ajax({
+                url: "https://open.neis.go.kr/hub/mealServiceDietInfo?Type=json&KEY=" + $KEY + "&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=B10&SD_SCHUL_CODE=7010266&MMEAL_SC_CODE=3&MLSV_YMD=" + $YMD3,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+
+                    try {
+                        $meal3 = data.mealServiceDietInfo[1].row[0].DDISH_NM;
+                        $(".meal3").append($meal3);
+                    } catch (e) {
+                        $error = data.RESULT.MESSAGE;
+                        $(".error").append($error);
+                    }
+
+                },
+                error: function() {
+                    console.log("error");
+                }
+            })
+        });
+    </script>
+
+    <!--내일 중식 스크립트-->
+    <script>
+        $(function() {
+            $KEY = "0"
+            $t = new Date();
+            $tyear4 = $t.getFullYear()
+            $tmonth4 = $t.getMonth() + 1;
+            $tdate4 = $t.getDate() + 1;
+            if ($tmonth4 < 10) {
+                $tmonth4 = "0" + $tmonth4;
+            }
+
+            if ($tdate4 < 10) {
+                $tdate4 = "0" + $tdate4;
+            }
+
+            $today4 = $tyear4 + $tmonth4 + $tdate4;
+            $YMD4 = $today4;
+            $.ajax({
+                url: "https://open.neis.go.kr/hub/mealServiceDietInfo?Type=json&KEY=" + $KEY + "&pIndex=1&pSize=100&ATPT_OFCDC_SC_CODE=B10&SD_SCHUL_CODE=7010266&MLSV_YMD=" + $YMD4,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    $(".YMD").append($tyear + "년 " + $tmonth + "월 " + $tdate + "일");
+                    try {
+                        $meal4 = data.mealServiceDietInfo[1].row[0].DDISH_NM;
+                        $(".meal4").append($meal4);
+                    } catch (e) {
+                        $error = data.RESULT.MESSAGE;
+                        $(".error").append($error);
+                    }
+
+                },
+                error: function() {
+                    console.log("error");
+                }
+            })
+        });
+    </script>
+
+
+
+</head>
+
+<body class="is-preload">
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Header -->
+        <header id="header" class="alt">
+            <span class="logo"><img src="images/logo.svg" alt="" /></span>
+            <h1>환일고 급식</h1>
+            <p>개발자: 환일고 윤준석<br /> contact <a href="http://pf.kakao.com/_WTbqK/54886041" target="_blank">@junseok</a>.</p>
+        </header>
+
+        <!-- Nav -->
+        <nav id="nav">
+            <ul>
+                <li><a href="#intro" class="active">오늘 중식</a></li>
+                <li><a href="#first">오늘 석식</a></li>
+                <li><a href="#second">내일 중식</a></li>
+                <li><a href="#cta">내일 석식</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main -->
+        <div id="main">
+
+            <!-- 오늘 중식 -->
+            <section id="intro" class="main special">
+                <div class="spotlight">
+                    <div class="content">
+                        <header class="major">
+                            <h1 class="YMDD"> 중식 </h1>
+                            <br>
+                            <h2 class="meal"></h2>
+                        </header>
+
+                        <ul class="actions">
+                            <li><a href="https://www.hwanil.hs.kr/급식식단표/" target="_blank" class="button">중식 식단표 보러가기</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 오늘 석식 -->
+            <section id="first" class="main special">
+                <div class="spotlight">
+                    <div class="content">
+                        <header class="major">
+                            <h1 class="YMDD"> 석식 </h1>
+                            <br>
+                            <h2 class="meal2"></h2>
+                        </header>
+
+                        <ul class="actions">
+                            <li><a href="https://www.hwanil.hs.kr/급식식단표석식/" target="_blank" class="button">석식 식단표 보러가기</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 내일 중식 -->
+            <section id="second" class="main special">
+                <div class="spotlight">
+                    <div class="content">
+                        <header class="major">
+                            <h1> 내일 중식 </h1>
+                            <br>
+                            <h2 class="meal4"></h2>
+                        </header>
+
+                        <ul class="actions">
+                            <li><a href="https://www.hwanil.hs.kr/급식식단표/" target="_blank" class="button">중식 식단표 보러가기</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 내일 석식 -->
+            <section id="cta" class="main special">
+                <div class="spotlight">
+                    <div class="content">
+                        <header class="major">
+                            <h1> 내일 석식 </h1>
+                            <br>
+                            <h2 class="meal3"></h2>
+                        </header>
+
+                        <ul class="actions">
+                            <li><a href="https://www.hwanil.hs.kr/급식식단표석식/" target="_blank" class="button">석식 식단표 보러가기</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <section>
+                <h2>급식정보 가져오는 곳</h2>
+                <p>neis교육정보 포털의 API를 이용하여 급식정보를 가져옵니다.<br>사이트 구현은 CSS와 HTML로 하였으며,<br>스크립트 구성은 javascripts로 구현 하였습니다.</p>
+
+            </section>
+            <section>
+                <h2>개발자 연락처</h2>
+                <dl class="alt">
+                    <dt>주소</dt>
+                    <dd>서울특별시 중구 &bull; 환일길 47, 3학년 4반</dd>
+                    <dt>연락처</dt>
+                    <dd><a href="https://pf.kakao.com/_WTbqK/54886041" target='_blank'>@반톡BOT 카카오채널 </a></dd>
+                </dl>
+                <ul class="icons">
+
+                    <li><a href="https://github.com/junseok0304/junseok0304" target='_blank' class="icon brands fa-github alt"><span class="label">GitHub</span></a></li>
+                </ul>
+            </section>
+            <p class="copyright">&copy; CC-BY-NC-ND</p>
+        </footer>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
